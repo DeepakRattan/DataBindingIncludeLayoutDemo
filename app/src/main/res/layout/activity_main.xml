@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- Includes
+
+Variables may be passed into an included layout's binding from
+the containing layout by using the app namespace and the variable name in an attribute.
+
+f you want to include another layout in your xml layout and want that
+layout to use binding as well then you can simply bind your object with the
+include tag as bind:user=”@{user}”.-->
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:bind="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="user"
+            type="com.example.deepakrattan.databindingincludelayoutdemo.User" />
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".MainActivity">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <!--To pass the user to included content_main layout, bind:user=”@{user}” is used.
+        Without this, the user object won’t be accessible in content_main layout.-->
+        <include
+            android:id="@+id/content"
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            bind:user="@{user}" />
+
+    </android.support.constraint.ConstraintLayout>
+</layout>
